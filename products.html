@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sản phẩm | Gundam Store</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      // Restore theme immediately to avoid flashing
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="particles"></div>
+
+    <!-- HEADER -->
+    <header id="header">
+      <div class="logo">
+        <span>
+          <a href="index.html" style="color: inherit; text-decoration: none">
+            ⚡ GUNDAM STORE
+          </a>
+        </span>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="products.html">Sản phẩm</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Tìm Gunpla..." />
+          <i class="fas fa-search"></i>
+        </div>
+
+        <a href="cart.html">
+          <i class="fas fa-shopping-cart"></i>
+        </a>
+      </div>
+    </header>
+
+    <section class="products" style="padding-top: 140px">
+      <h2 class="section-title">ALL GUNPLA</h2>
+
+      <div class="filter-bar">
+        <button class="filter-chip active" data-filter="ALL">ALL</button>
+        <button class="filter-chip" data-filter="MG">MG</button>
+        <button class="filter-chip" data-filter="HG">HG</button>
+        <button class="filter-chip" data-filter="RG">RG</button>
+        <button class="filter-chip" data-filter="PG">PG</button>
+        <button class="filter-chip" data-filter="SD">SD</button>
+        <button class="filter-chip" data-filter="TOOLS">Dụng cụ</button>
+        <button class="filter-chip" data-filter="PAINT">Sơn & decal</button>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <div class="modal" id="quickModal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script src="js/include-header.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

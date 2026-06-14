@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Gundam Store</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background: radial-gradient(circle at center, #10233f, #050b15 70%);
+      }
+
+      .error-container {
+        text-align: center;
+        z-index: 10;
+        padding: 40px;
+      }
+
+      .error-code {
+        font-size: 180px;
+        font-weight: 900;
+        color: #00e5ff;
+        text-shadow:
+          0 0 20px #00e5ff,
+          0 0 40px #00e5ff,
+          0 0 80px #00e5ff;
+        animation: pulse 2s infinite;
+      }
+
+      .error-title {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      .error-desc {
+        max-width: 600px;
+        margin: auto;
+        color: #cfd8dc;
+        line-height: 1.8;
+      }
+
+      .error-actions {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .btn-home,
+      .btn-shop {
+        padding: 15px 30px;
+        border: none;
+        border-radius: 40px;
+        cursor: pointer;
+        font-family: Orbitron;
+        transition: 0.4s;
+        text-decoration: none;
+      }
+
+      .btn-home {
+        background: #00e5ff;
+        color: black;
+      }
+
+      .btn-shop {
+        border: 2px solid #ff1744;
+        color: white;
+        background: transparent;
+      }
+
+      .btn-home:hover,
+      .btn-shop:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 25px #00e5ff;
+      }
+
+      .floating-gundam {
+        position: absolute;
+        width: 300px;
+        opacity: 0.15;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .left {
+        left: 5%;
+        top: 20%;
+      }
+
+      .right {
+        right: 5%;
+        bottom: 10%;
+        animation-delay: 2s;
+      }
+
+      .glow-line {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: #00e5ff;
+        box-shadow: 0 0 20px #00e5ff;
+        animation: scan 4s linear infinite;
+      }
+
+      @keyframes pulse {
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes float {
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      @keyframes scan {
+        from {
+          top: -10%;
+        }
+
+        to {
+          top: 110%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .error-code {
+          font-size: 100px;
+        }
+
+        .error-title {
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="glow-line"></div>
+
+    <img
+      class="floating-gundam left"
+      src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
+      alt=""
+    />
+
+    <img
+      class="floating-gundam right"
+      src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
+      alt=""
+    />
+
+    <div class="error-container">
+      <div class="error-code">404</div>
+
+      <h1 class="error-title">TARGET NOT FOUND</h1>
+
+      <p class="error-desc">
+        Xin lỗi, khu vực bạn đang truy cập không tồn tại trong hệ thống Gundam
+        Store. Có thể trang đã bị di chuyển hoặc chưa được triển khai.
+      </p>
+
+      <div class="error-actions">
+        <a href="index.html" class="btn-home"> 🚀 Về Trang Chủ </a>
+
+        <a href="products.html" class="btn-shop"> ⚡ Xem Gunpla </a>
+      </div>
+    </div>
+  </body>
+</html>

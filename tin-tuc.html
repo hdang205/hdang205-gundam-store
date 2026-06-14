@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tin Tức Gunpla - Gundam Store</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      // Restore theme immediately to avoid flashing
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+      }
+    </script>
+  </head>
+  <body>
+    <div id="particles"></div>
+    <header id="header">
+      <a href="index.html" class="logo"><span>⚡ GUNDAM STORE</span></a>
+      <button
+        id="menuToggle"
+        onclick="
+          this.classList.toggle('active');
+          menu.hidden ^= 1;
+        "
+      >
+        <span></span><span></span><span></span>
+      </button>
+      <aside id="menu" hidden>
+        <nav id="menu-links">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="products.html">Sản phẩm</a></li>
+          <li><a href="mg.html">MG</a></li>
+          <li><a href="hg.html">HG</a></li>
+          <li><a href="rg-pg.html">RG & PG</a></li>
+          <li><a href="phu-kien.html">Phụ kiện</a></li>
+          <li><a href="tin-tuc.html">Tin tức</a></li>
+          <li><a href="lien-he.html">Liên hệ</a></li>
+        </nav>
+      </aside>
+    </header>
+
+    <main
+      style="padding: 120px 20px 40px 20px; max-width: 1000px; margin: 0 auto"
+    >
+      <h2 class="section-title">GUNDAM NEWS BULLETIN</h2>
+      <p class="section-subtitle">
+        Cập nhật thông tin các dòng kit sắp phát hành và thông tin sự kiện hot
+        nhất.
+      </p>
+
+      <div class="banner-grid" style="margin-top: 40px">
+        <article class="promo-banner">
+          <div class="banner-inner">
+            <span class="tag">HOT NEWS</span>
+            <h3>Bandai hé lộ dự án PG mới tiếp theo?</h3>
+            <p>
+              Những hình ảnh phác thảo linh kiện đầu tiên vừa được rò rỉ tại sự
+              kiện Shizuoka Hobby Show làm nức lòng cộng đồng mecha.
+            </p>
+          </div>
+        </article>
+
+        <article class="promo-banner">
+          <div class="banner-inner">
+            <span class="tag">ANIME</span>
+            <h3>Gundam Movie cán mốc doanh thu kỷ lục</h3>
+            <p>
+              Phần phim điện ảnh mới nhất nhận được cơn mưa lời khen về kỹ xảo
+              và âm nhạc, thúc đẩy doanh số bán kit tăng vọt toàn cầu.
+            </p>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer>
+      <p style="text-align: center; color: var(--muted)">
+        © <span id="footerYear"></span> Gundam Store
+      </p>
+    </footer>
+    <script src="js/include-header.js"></script>
+  </body>
+</html>

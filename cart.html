@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Giỏ Hàng</title>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      // Restore theme immediately to avoid flashing
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="particles"></div>
+
+    <section style="padding-top: 140px">
+      <h2 class="section-title">GIỎ HÀNG</h2>
+
+      <div id="cartRoot" class="cart-container"></div>
+    </section>
+
+    <div id="toast"></div>
+
+    <script src="js/include-header.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

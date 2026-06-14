@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Checkout</title>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      // Restore theme immediately to avoid flashing
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="particles"></div>
+
+    <section style="padding-top: 140px">
+      <h2 class="section-title">THANH TOÁN</h2>
+
+      <form class="checkout-form" id="checkoutForm">
+        <input type="text" id="fullName" placeholder="Họ và tên" required />
+
+        <input type="text" id="phone" placeholder="Số điện thoại" required />
+
+        <input type="text" id="address" placeholder="Địa chỉ" required />
+
+        <select id="paymentMethod" required>
+          <option value="COD">COD - Thanh toán khi nhận hàng</option>
+          <option value="BANK_TRANSFER">Chuyển khoản ngân hàng</option>
+          <option value="MOMO">Ví MoMo</option>
+        </select>
+
+        <div class="coupon-row">
+          <input type="text" id="couponCode" placeholder="Mã giảm giá" />
+          <button type="button" class="btn-ghost" id="applyCouponBtn">
+            Áp dụng
+          </button>
+        </div>
+
+        <div id="checkoutSummary" class="detail-card"></div>
+
+        <textarea id="note" placeholder="Ghi chú"></textarea>
+
+        <button class="btn-primary" type="submit">Xác nhận thanh toán</button>
+      </form>
+
+      <div id="checkoutLoading" class="modal" style="display: none">
+        <div class="modal-content" style="text-align: center; max-width: 360px">
+          <div class="loader-gundam" style="margin: 0 auto 18px"></div>
+          <p>Đang xử lý thanh toán...</p>
+        </div>
+      </div>
+    </section>
+
+    <div id="toast"></div>
+
+    <script src="js/include-header.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

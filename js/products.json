@@ -1,0 +1,189 @@
+[
+  {
+    "id": "p1",
+    "name": "Gundam Barbatos Lupus",
+    "category": "MG",
+    "badge": "New",
+    "oldPrice": 2500000,
+    "price": 2200000,
+    "stock": "Còn hàng",
+    "brand": "Bandai",
+    "scale": "1/100",
+    "image": "images/products/Lupus1.jpg",
+    "gallery": [
+      "images/products/Lupus2.jpg",
+      "images/products/Lupus3.jpg",
+      "images/products/Lupus4.jpg",
+      "images/products/Lupus5.jpg"
+    ],
+    "specs": {},
+    "description": "Freedom Gundam với inner frame chi tiết, pose đẹp và cân bằng tốt.",
+    "reviews": []
+  },
+  {
+    "id": "p2",
+    "name": "HG Xi Gundam Hathaway",
+    "category": "HG",
+    "badge": "New",
+    "oldPrice": 1250000,
+    "price": 990000,
+    "stock": "Còn hàng",
+    "brand": "Bandai",
+    "scale": "1/144",
+    "image": "images/products/Hathaway1.jpg",
+    "gallery": [
+      "images/products/Hathaway2.jpg",
+      "images/products/Hathaway3.jpg",
+      "images/products/Hathaway4.jpg",
+      "images/products/Hathaway5.jpg"
+    ],
+    "specs": {
+      "Grade": "High Grade",
+      "Scale": "1/144",
+      "Height": "13 cm",
+      "Manufacturer": "Bandai"
+    },
+    "description": "HG kit dễ lắp, khớp tốt, hợp cho người mới và người build nhanh.",
+    "reviews": [
+      {
+        "name": "Huy",
+        "rating": 4,
+        "text": "Rất đẹp, price hợp lý."
+      }
+    ]
+  },
+  {
+    "id": "p3",
+    "name": "RG 1/144 Force Impulse Gundam",
+    "category": "RG",
+    "badge": "Sale",
+    "oldPrice": 1700000,
+    "price": 1490000,
+    "stock": "Sắp hết",
+    "brand": "Bandai",
+    "scale": "1/144",
+    "image": "images/products/ForceImpulse1.jpg",
+    "gallery": [
+      "images/products/ForceImpulse2.jpg",
+      "images/products/ForceImpulse3.jpg",
+      "images/products/ForceImpulse4.jpg",
+      "images/products/ForceImpulse5.jpg"
+    ],
+    "specs": {
+      "Grade": "Real Grade",
+      "Scale": "1/144",
+      "Height": "15 cm",
+      "Manufacturer": "Bandai"
+    },
+    "description": "RG Nu Gundam có frame cực đẹp, nhiều chi tiết cơ khí và silhouette ấn tượng.",
+    "reviews": [
+      {
+        "name": "Long",
+        "rating": 5,
+        "text": "RG này build đã tay, hoàn thiện xuất sắc."
+      }
+    ]
+  },
+  {
+    "id": "p4",
+    "name": "PG Unleashed 1/60 RX-93 Nu Gundam",
+    "category": "PG",
+    "badge": "Hot",
+    "oldPrice": 6800000,
+    "price": 5990000,
+    "stock": "Hàng hiếm",
+    "brand": "Bandai",
+    "scale": "1/60",
+    "image": "images/products/NuGundam1.jpg",
+    "gallery": [
+      "images/products/NuGundam1.jpg",
+      "images/products/NuGundam2.jpg",
+      "images/products/NuGundam3.jpg",
+      "images/products/NuGundam4.jpg",
+      "images/products/NuGundam5.jpg"
+    ],
+    "specs": {
+      "Grade": "Perfect Grade",
+      "Scale": "1/60",
+      "Height": "32 cm",
+      "Manufacturer": "Bandai"
+    },
+    "description": "PG Unicorn Gundam siêu lớn, siêu chi tiết, dành cho bộ sưu tập cao cấp.",
+    "reviews": [
+      {
+        "name": "Tuan",
+        "rating": 5,
+        "text": "Cực phẩm, xứng đáng trưng bày."
+      }
+    ]
+  },
+  {
+    "id": "p5",
+    "name": "SD Destiny Gundam",
+    "category": "SD",
+    "badge": "New",
+    "oldPrice": 380000,
+    "price": 320000,
+    "stock": "Còn hàng",
+    "brand": "Bandai",
+    "scale": "SD",
+    "image": "images/products/DestinyGundam1.jpg",
+    "gallery": [
+      "images/products/DestinyGundam1.jpg",
+      "images/products/DestinyGundam2.jpg",
+      "images/products/DestinyGundam3.jpg",
+      "images/products/DestinyGundam4.jpg",
+      "images/products/DestinyGundam5.jpg"
+    ],
+    "specs": {
+      "Grade": "SD",
+      "Scale": "Chibi",
+      "Height": "9 cm",
+      "Manufacturer": "Bandai"
+    },
+    "description": "SD siêu cute cho người thích build nhanh và trưng góc bàn.",
+    "reviews": []
+  },
+  {
+    "id": "p6",
+    "name": "Gundam Tools Starter Set",
+    "category": "Tools",
+    "badge": "Sale",
+    "oldPrice": 520000,
+    "price": 420000,
+    "stock": "Còn hàng",
+    "brand": "GodHand",
+    "scale": "Accessory",
+    "image": "images/products/tools.jpg",
+    "gallery": ["images/products/tools.jpg"],
+    "specs": {
+      "Type": "Tools",
+      "Scale": "Accessory",
+      "Height": "-",
+      "Manufacturer": "GodHand"
+    },
+    "description": "Bộ dụng cụ đầy đủ cho người mới build Gunpla.",
+    "reviews": []
+  },
+  {
+    "id": "p7",
+    "name": "Metallic Paint & Decal Pack",
+    "category": "Paint",
+    "badge": "Hot",
+    "oldPrice": 260000,
+    "price": 199000,
+    "stock": "Còn hàng",
+    "brand": "Gaia",
+    "scale": "Accessory",
+    "image": "images/products/son.jpg",
+    "gallery": ["images/products/son.jpg", "images/products/son1.jpg"],
+    "specs": {
+      "Type": "Paint & Decal",
+      "Scale": "Accessory",
+      "Height": "-",
+      "Manufacturer": "Gaia"
+    },
+    "description": "Sơn và decal để nâng cấp mô hình sang chất lượng trưng bày.",
+    "reviews": []
+  }
+]

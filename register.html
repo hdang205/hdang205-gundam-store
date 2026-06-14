@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Register | Gundam Store</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      // Restore theme immediately to avoid flashing
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="particles"></div>
+
+    <section class="auth-page">
+      <div class="auth-box">
+        <div class="auth-header">
+          <h1>🚀 CREATE ACCOUNT</h1>
+          <p>Become A Gundam Builder</p>
+        </div>
+
+        <form id="registerForm">
+          <div class="input-group">
+            <i class="fas fa-user"></i>
+
+            <input
+              type="text"
+              id="registerName"
+              placeholder="Họ và tên"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <i class="fas fa-envelope"></i>
+
+            <input
+              type="email"
+              id="registerEmail"
+              placeholder="Email"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+
+            <input
+              type="password"
+              id="registerPassword"
+              placeholder="Password"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="Confirm Password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn-primary auth-btn">
+            CREATE ACCOUNT
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          <p>
+            Đã có tài khoản?
+            <a href="login.html">Đăng nhập</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div id="toast"></div>
+
+    <script src="js/include-header.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

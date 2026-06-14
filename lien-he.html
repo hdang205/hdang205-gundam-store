@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liên Hệ - Gundam Store</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      // Restore theme immediately to avoid flashing
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+      }
+    </script>
+    <style>
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+        font-family: sans-serif;
+        border-radius: 4px;
+      }
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        border-color: #00fff0;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="particles"></div>
+    <header id="header">
+      <a href="index.html" class="logo"><span>⚡ GUNDAM STORE</span></a>
+    </header>
+
+    <main
+      style="padding: 120px 20px 40px 20px; max-width: 800px; margin: 0 auto"
+    >
+      <h2 class="section-title">LIÊN HỆ VỚI CHÚNG TÔI</h2>
+      <p class="section-subtitle">
+        Hệ thống tiếp nhận thông tin hỗ trợ từ các Pilot.
+      </p>
+
+      <div
+        style="
+          background: rgba(0, 0, 0, 0.4);
+          padding: 30px;
+          border: 1px solid #00fff0;
+          border-radius: 8px;
+          margin-top: 30px;
+        "
+      >
+        <form
+          class="contact-form"
+          onsubmit="
+            event.preventDefault();
+            alert('Tín hiệu đã được gửi thành công!');
+          "
+        >
+          <label
+            style="
+              font-family: &quot;Orbitron&quot;;
+              display: block;
+              margin-bottom: 5px;
+            "
+            >USER NAME / TÊN</label
+          >
+          <input type="text" placeholder="Nhập tên..." required />
+
+          <label
+            style="
+              font-family: &quot;Orbitron&quot;;
+              display: block;
+              margin-bottom: 5px;
+            "
+            >EMAIL ADDRESS</label
+          >
+          <input type="email" placeholder="Nhập email..." required />
+
+          <label
+            style="
+              font-family: &quot;Orbitron&quot;;
+              display: block;
+              margin-bottom: 5px;
+            "
+            >MESSAGE / NỘI DUNG</label
+          >
+          <textarea
+            rows="5"
+            placeholder="Nội dung cần hỗ trợ..."
+            required
+          ></textarea>
+
+          <button
+            type="submit"
+            class="btn-primary"
+            style="width: 100%; padding: 12px"
+          >
+            GỬI TÍN HIỆU
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <p style="text-align: center; color: var(--muted)">
+        © <span id="footerYear"></span> Gundam Store
+      </p>
+    </footer>
+    <script src="js/include-header.js"></script>
+  </body>
+</html>

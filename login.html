@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Login | Gundam Store</title>
+
+    <!-- FONT -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ICON -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      // Restore theme immediately to avoid flashing
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- PARTICLES -->
+    <div id="particles"></div>
+
+    <!-- LOGIN PAGE -->
+    <section class="auth-page">
+      <div class="auth-box">
+        <div class="auth-header">
+          <h1>LOGIN</h1>
+        </div>
+
+        <form id="loginForm">
+          <div class="input-group">
+            <i class="fas fa-envelope"></i>
+
+            <input type="email" id="loginEmail" placeholder="Email" required />
+          </div>
+
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="Mật khẩu"
+              required
+            />
+          </div>
+          <div class="remember-box">
+            <label>
+              <input type="checkbox" />
+              Remember me
+            </label>
+            <a href="#" class="forgot-password"> Quên mật khẩu? </a>
+          </div>
+
+          <button type="submit" class="btn-primary auth-btn">LOGIN</button>
+        </form>
+
+        <div class="auth-footer">
+          <p>
+            Chưa có tài khoản?
+            <a href="register.html">Đăng ký</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOAST -->
+    <div id="toast"></div>
+
+    <script src="js/include-header.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

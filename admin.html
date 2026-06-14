@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Bảng Điều Khiển Quản Trị</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/admin.css" />
+    <script>
+      // Restore theme immediately to avoid flashing
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="particles"></div>
+
+    <header id="header">
+      <div class="logo" id="adminHeaderTitle">⚡ QUẢN TRỊ VIÊN</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="products.html">Sản phẩm</a></li>
+          <li><a href="user.html">Tài khoản</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section style="padding-top: 140px">
+      <h2 class="section-title">QUẢN LÝ HỆ THỐNG</h2>
+      <div id="adminRoot"></div>
+    </section>
+
+    <div id="toast"></div>
+
+    <script src="js/include-header.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

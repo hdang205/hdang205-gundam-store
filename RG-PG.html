@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RG & PG Premium - Gundam Store</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      // Restore theme immediately to avoid flashing
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+      }
+    </script>
+  </head>
+  <body data-category="RG_PG">
+    <div id="particles"></div>
+    <header id="header">
+      <a href="index.html" class="logo"><span>⚡ GUNDAM STORE</span></a>
+      <div class="header-actions">
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+        <button id="themeToggle"><i class="fas fa-moon"></i></button>
+      </div>
+      <button
+        id="menuToggle"
+        onclick="
+          this.classList.toggle('active');
+          menu.hidden ^= 1;
+        "
+      >
+        <span></span><span></span><span></span>
+      </button>
+      <aside id="menu" hidden>
+        <nav id="menu-links">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="products.html">Sản phẩm</a></li>
+          <li><a href="mg.html">MG</a></li>
+          <li><a href="hg.html">HG</a></li>
+          <li><a href="rg-pg.html">RG & PG</a></li>
+          <li><a href="phu-kien.html">Phụ kiện</a></li>
+          <li><a href="tin-tuc.html">Tin tức</a></li>
+          <li><a href="lien-he.html">Liên hệ</a></li>
+        </nav>
+      </aside>
+    </header>
+
+    <main
+      style="padding: 120px 20px 40px 20px; max-width: 1200px; margin: 0 auto"
+    >
+      <h2 class="section-title">REAL GRADE & PERFECT GRADE</h2>
+      <p class="section-subtitle">
+        Phân khúc tinh xảo cơ khí (RG 1/144) và siêu mô hình tối thượng (PG
+        1/60).
+      </p>
+      <div class="product-grid" id="productGrid"></div>
+    </main>
+
+    <footer>
+      <p style="text-align: center; color: var(--muted)">
+        © <span id="footerYear"></span> Gundam Store
+      </p>
+    </footer>
+    <div class="modal" id="quickModal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+    <div id="toast"></div>
+
+    <script src="js/include-header.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      // Khôi phục lọc RG & PG
+      window.addEventListener("DOMContentLoaded", () => {
+        setTimeout(() => {
+          if (typeof products !== "undefined") {
+            const premiumProducts = products.filter((p) => {
+              const cat = String(p.category || "").toUpperCase();
+              const name = String(p.name || "").toUpperCase();
+              return (
+                cat === "RG" ||
+                cat === "PG" ||
+                name.startsWith("RG ") ||
+                name.startsWith("PG ")
+              );
+            });
+            if (
+              premiumProducts.length > 0 &&
+              typeof renderProducts === "function"
+            )
+              renderProducts(premiumProducts);
+          }
+        }, 100);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Hồ Sơ Người Dùng</title>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      // Restore theme immediately to avoid flashing
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="particles"></div>
+
+    <section style="padding-top: 140px">
+      <h2 class="section-title">HỒ SƠ NGƯỜI DÙNG</h2>
+
+      <div class="user-profile">
+        <div
+          class="avatar-container"
+          style="position: relative; display: inline-block"
+        >
+          <img
+            id="profileAvatar"
+            src="images/categories/mg.jpg"
+            class="avatar"
+            style="
+              width: 120px;
+              height: 120px;
+              object-fit: cover;
+              border-radius: 50%;
+              border: 2px solid var(--primary);
+            "
+          />
+          <button
+            id="uploadAvatarBtn"
+            style="
+              position: absolute;
+              bottom: 5px;
+              right: 5px;
+              background: var(--primary);
+              border: none;
+              border-radius: 50%;
+              width: 32px;
+              height: 32px;
+              color: white;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+            title="Đổi ảnh đại diện"
+          >
+            <i class="fas fa-camera"></i>
+          </button>
+          <input
+            type="file"
+            id="avatarInput"
+            accept="image/*"
+            style="display: none"
+          />
+        </div>
+
+        <h3 id="profileName">Khach</h3>
+        <p id="profileEmail">Dang tai du lieu...</p>
+
+        <a
+          href="login.html"
+          id="loginButton"
+          class="btn-primary"
+          style="
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          Đăng nhập
+        </a>
+
+        <div class="profile-section">
+          <h4>Lịch sử đơn hàng</h4>
+          <ul id="orderList" class="profile-list"></ul>
+        </div>
+
+        <div class="profile-section">
+          <h4>Yêu Thích</h4>
+          <ul id="wishlistList" class="profile-list"></ul>
+        </div>
+
+        <div class="profile-section detail-card">
+          <h4>Đổi mật khẩu</h4>
+          <form
+            id="changePasswordForm"
+            class="checkout-form"
+            style="margin-top: 14px"
+          >
+            <input type="password" id="oldPassword" placeholder="Mật khẩu cũ" />
+            <input
+              type="password"
+              id="newPassword"
+              placeholder="Mật khẩu mới"
+            />
+            <input
+              type="password"
+              id="confirmNewPassword"
+              placeholder="Xác nhận mật khẩu mới"
+            />
+            <button class="btn-primary" type="submit">Đổi mật khẩu</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <div id="toast"></div>
+
+    <script src="js/include-header.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
