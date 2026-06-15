@@ -408,7 +408,7 @@ body.light-mode #themeToggle:hover {
 
 .dropdown-menu {
   position: absolute;
-  top: 140%;
+  top: 110%;
   right: 0;
   min-width: 190px;
   display: none;
@@ -419,6 +419,7 @@ body.light-mode #themeToggle:hover {
   border: 1px solid var(--glass);
   border-radius: 16px;
   box-shadow: var(--shadow);
+  z-index: 1001;
 }
 
 .user-dropdown:hover .dropdown-menu {
