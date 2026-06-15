@@ -163,7 +163,6 @@ function seedData() {
       });
     }
   }
-
   writeJSON(STORAGE_KEYS.users, users);
 }
 
@@ -338,6 +337,11 @@ function initMenuInteractions() {
       }
     });
 
+    // Prevent clicks inside the dropdown from closing it
+    userDropdown.addEventListener("mousedown", (event) => {
+      event.stopPropagation();
+    });
+
     document.addEventListener("click", (event) => {
       if (!userDropdown.contains(event.target)) {
         closeDropdown();
@@ -356,7 +360,11 @@ function initMenuInteractions() {
 
 function renderHeaderUserState() {
   const dropdown = document.querySelector(".dropdown-menu");
-  if (!dropdown) return;
+  if (!dropdown) {
+    // If header is not yet loaded by include-header.js, retry in 100ms
+    setTimeout(renderHeaderUserState, 100);
+    return;
+  }
 
   const currentUser = getCurrentUser();
   if (!currentUser) {
@@ -1007,19 +1015,35 @@ function renderUserPage() {
         orderList.innerHTML = orders
           .map(
             (o) => `
-        <li class="order-item">
-          <div>
-            <strong>Đơn hàng #${o._id.slice(-6).toUpperCase()}</strong>
-            <p style="font-size: 0.8em; color: #a0aec0;">${new Date(o.createdAt).toLocaleDateString()}</p>
+        <li class="order-item" style="cursor: pointer; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <div style="display:flex; justify-content: space-between;">
+            <div>
+              <strong>Đơn hàng #${o._id.slice(-6).toUpperCase()}</strong>
+              <p style="font-size: 0.8em; color: #a0aec0;">${new Date(o.createdAt).toLocaleDateString()}</p>
+            </div>
+            <div style="text-align: right;">
+              <p><b>${formatVnd(o.totalPrice)}</b></p>
+              <span class="status-badge status-${o.status}">${o.status.toUpperCase()}</span>
+            </div>
           </div>
-          <div style="text-align: right;">
-            <p><b>${formatVnd(o.totalPrice)}</b></p>
-            <span class="status-badge status-${o.status}">${o.status.toUpperCase()}</span>
+          <div class="order-details" style="display:none; margin-top: 10px; font-size: 0.9em; color: rgba(255,255,255,0.7);">
+            ${o.orderItems ? o.orderItems.map((item) => `<div>${item.name} x ${item.qty}</div>`).join("") : ""}
           </div>
         </li>
       `,
           )
           .join("");
+
+        // Toggle order details
+        orderList.querySelectorAll(".order-item").forEach((item) => {
+          item.addEventListener("click", () => {
+            const details = item.querySelector(".order-details");
+            if (details) {
+              details.style.display =
+                details.style.display === "none" ? "block" : "none";
+            }
+          });
+        });
       } else {
         orderList.innerHTML = "<li>Chưa có đơn hàng nào.</li>";
       }
@@ -1064,36 +1088,6 @@ function renderUserPage() {
     }
   });
 
-  const orders = getOrders().filter((order) => order.userId === currentUser.id);
-  orderList.innerHTML = orders.length
-    ? orders
-        .map(
-          (order) =>
-            `<li class="order-item" style="cursor: pointer; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-              <div style="display:flex; justify-content: space-between;">
-                <span>Đơn ${order.id.slice(0, 8)}</span>
-                <span>${formatVnd(order.total)}</span>
-                <span class="status-badge" style="background: var(--primary); padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">${order.orderStatus}</span>
-              </div>
-              <div class="order-details" style="display:none; margin-top: 10px; font-size: 0.9em; color: rgba(255,255,255,0.7);">
-                ${order.items.map((item) => `<div>${item.product.name} x ${item.quantity}</div>`).join("")}
-                <div style="margin-top: 5px; color: var(--accent);">Ngày đặt: ${new Date(order.createdAt).toLocaleDateString("vi-VN")}</div>
-              </div>
-            </li>`,
-        )
-        .join("")
-    : "<li>Chưa có đơn hàng.</li>";
-
-  // Toggle order details
-  orderList.querySelectorAll(".order-item").forEach((item) => {
-    item.addEventListener("click", () => {
-      const details = item.querySelector(".order-details");
-      if (details) {
-        details.style.display =
-          details.style.display === "none" ? "block" : "none";
-      }
-    });
-  });
 
   const wishIds = getWishlistIds();
   const wishProducts = getProducts().filter((item) =>
@@ -2907,7 +2901,6 @@ async function bootstrap() {
   renderCheckoutPage();
   renderUserPage();
   initAdminPage();
-  wireProductDetailControls();
 }
 
 window.addEventListener("load", bootstrap);
