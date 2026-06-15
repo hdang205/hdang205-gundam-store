@@ -393,6 +393,18 @@ body.light-mode #themeToggle:hover {
   position: relative;
 }
 
+.user-dropdown::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: transparent;
+  pointer-events: auto;
+  z-index: 1001;
+}
+
 .user-icon {
   display: inline-flex;
   align-items: center;

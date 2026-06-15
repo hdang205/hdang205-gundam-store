@@ -134,6 +134,20 @@ function initParallax() {
   });
 }
 
+function removeSampleStaffAccounts() {
+  const users = getUsers();
+  const filteredUsers = users.filter(user =>
+    user.email !== "staff.kho@gmail.com" &&
+    user.email !== "staff.tuvan@gmail.com" &&
+    user.email !== "staff.cskh@gmail.com"
+  );
+
+  if (filteredUsers.length < users.length) {
+    writeJSON(STORAGE_KEYS.users, filteredUsers);
+    console.log("Sample staff accounts removed.");
+  }
+}
+
 function seedData() {
   const users = readJSON(STORAGE_KEYS.users, []);
   if (!users.some((user) => user.email === "admin@gmail.com")) {
@@ -144,26 +158,8 @@ function seedData() {
       password: "admin123",
       role: "admin",
     });
+    writeJSON(STORAGE_KEYS.users, users);
   }
-
-  const staffAccounts = [
-    { name: "Nhân viên kho", email: "staff.kho@gmail.com", password: "staff123" },
-    { name: "Tư vấn viên", email: "staff.tuvan@gmail.com", password: "staff123" },
-    { name: "CSKH", email: "staff.cskh@gmail.com", password: "staff123" },
-  ];
-
-  for (const s of staffAccounts) {
-    if (!users.some((user) => user.email === s.email)) {
-      users.push({
-        id: `u-staff-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
-        name: s.name,
-        email: s.email,
-        password: s.password,
-        role: "staff",
-      });
-    }
-  }
-  writeJSON(STORAGE_KEYS.users, users);
 }
 
 function getCurrentUser() {
@@ -376,9 +372,11 @@ function renderHeaderUserState() {
     return;
   }
 
+  const roleLabel = currentUser.role === "admin" ? "Quản trị" : "Nhân viên";
+
   dropdown.innerHTML = `
     <a href="user.html"><i class="fas fa-id-card"></i> ${currentUser.email}</a>
-    ${currentUser.role === "admin" || currentUser.role === "staff" ? '<a href="admin.html"><i class="fas fa-shield"></i> Quản trị</a>' : ""}
+    ${(currentUser.role === "admin" || currentUser.role === "staff") ? `<a href="admin.html"><i class="fas fa-shield"></i> ${roleLabel}</a>` : ""}
     <a href="#" id="logoutLink"><i class="fas fa-right-from-bracket"></i> Đăng xuất</a>
   `;
 
@@ -1469,14 +1467,14 @@ function initAdminPage() {
     }
   });
 
-  function switchTab(tab) {
+  async function switchTab(tab) {
     // Update active button
     nav.querySelectorAll("button").forEach((btn) => {
       btn.classList.toggle("active", btn.dataset.tab === tab);
     });
 
     // Render content
-    renderAdminTab(tab, content);
+    await renderAdminTab(tab, content);
   }
 
   nav.addEventListener("click", (e) => {
@@ -1489,12 +1487,24 @@ function initAdminPage() {
   switchTab(allTabs[0].key);
 }
 
-function renderAdminTab(tab, container) {
+async function renderAdminTab(tab, container) {
   const products = getProducts();
   const orders = getOrders();
-  const users = getUsers();
+  let users = getUsers();
   const currentUser = getCurrentUser();
   const isAdmin = currentUser?.role === "admin";
+
+  // Fetch users from backend if needed
+  if (tab === "users" || tab === "staff" || tab === "overview") {
+    try {
+      const backendUsers = await api.getAllUsers();
+      if (Array.isArray(backendUsers)) {
+        users = backendUsers;
+      }
+    } catch (err) {
+      console.error("Failed to fetch users from backend", err);
+    }
+  }
 
   // Chặn staff truy cập tab chỉ dành cho admin
   const adminOnlyTabs = ["categories", "users", "staff", "banners"];
@@ -1776,56 +1786,65 @@ function renderAdminTab(tab, container) {
       </div>
     `;
     const userForm = byId("adminUserForm");
-    userForm?.addEventListener("submit", (e) => {
+    userForm?.addEventListener("submit", async (e) => {
       e.preventDefault();
       const editId = byId("adminUserId").value;
       const name = byId("adminUserName").value.trim();
       const email = byId("adminUserEmail").value.trim().toLowerCase();
       const password = byId("adminUserPass").value;
-      const list = getUsers();
+
       if (editId) {
-        const idx = list.findIndex(x => (x.id || x._id) === editId);
-        if (idx !== -1) {
-          list[idx].name = name;
-          list[idx].email = email;
-          if (password) list[idx].password = password;
-        }
+        // Update user logic (if backend supports it, otherwise we might need a new endpoint)
+        // For now, let's assume we only support creating/deleting/locking via backend
+        showToast("Tính năng sửa thông tin khách hàng đang được cập nhật");
       } else {
-        if (list.some(x => x.email === email)) { showToast("Email đã tồn tại"); return; }
-        list.push({ id: `u-${Date.now()}`, name, email, password: password || "123456", role: "user", createdAt: new Date().toISOString(), isLocked: false });
+        try {
+          const result = await api.register(name, email, password || "123456");
+          if (result.success || result.token) {
+            showToast("Đã thêm khách hàng");
+            renderAdminTab("users", container);
+          } else {
+            showToast(result.message || "Lỗi khi thêm khách hàng");
+          }
+        } catch (err) {
+          showToast("Lỗi kết nối backend");
+        }
       }
-      setUsers(list);
-      showToast("Đã lưu khách hàng");
-      renderAdminTab("users", container);
     });
-    byId("adminUserTable")?.addEventListener("click", (e) => {
+    byId("adminUserTable")?.addEventListener("click", async (e) => {
       const id = e.target.dataset.id;
       const action = e.target.dataset.action;
       if (!id) return;
-      let list = getUsers();
-      if (action === "delete") {
-        if (confirm("Xóa khách hàng này?")) {
-          setUsers(list.filter(x => (x.id || x._id) !== id));
+
+      try {
+        if (action === "delete") {
+          if (confirm("Xóa khách hàng này?")) {
+            await api.deleteUser(id);
+            showToast("Đã xóa khách hàng");
+            renderAdminTab("users", container);
+          }
+        } else if (action === "lock") {
+          await api.lockUser(id);
+          showToast("Đã khóa tài khoản");
           renderAdminTab("users", container);
+        } else if (action === "unlock") {
+          await api.unlockUser(id);
+          showToast("Đã mở khóa tài khoản");
+          renderAdminTab("users", container);
+        } else if (action === "resetpass") {
+          showToast("Tính năng reset mật khẩu đang được cập nhật");
+        } else if (action === "edit") {
+          const u = users.find((x) => (x.id || x._id) === id);
+          if (u) {
+            byId("adminUserId").value = u.id || u._id;
+            byId("adminUserName").value = u.name || u.username || "";
+            byId("adminUserEmail").value = u.email || "";
+            byId("adminUserPass").value = "";
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
         }
-      } else if (action === "lock") {
-        const u = list.find(x => (x.id || x._id) === id);
-        if (u) { u.isLocked = true; setUsers(list); renderAdminTab("users", container); }
-      } else if (action === "unlock") {
-        const u = list.find(x => (x.id || x._id) === id);
-        if (u) { u.isLocked = false; setUsers(list); renderAdminTab("users", container); }
-      } else if (action === "resetpass") {
-        const u = list.find(x => (x.id || x._id) === id);
-        if (u) { u.password = "123456"; setUsers(list); showToast("Đã reset mật khẩu về 123456"); renderAdminTab("users", container); }
-      } else if (action === "edit") {
-        const u = list.find(x => (x.id || x._id) === id);
-        if (u) {
-          byId("adminUserId").value = u.id || u._id;
-          byId("adminUserName").value = u.name || u.username || "";
-          byId("adminUserEmail").value = u.email || "";
-          byId("adminUserPass").value = "";
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }
+      } catch (err) {
+        showToast("Lỗi khi thực hiện thao tác");
       }
     });
   } else if (tab === "statistics") {
@@ -1925,7 +1944,7 @@ function renderAdminTab(tab, container) {
       </div>
     `;
     const staffForm = byId("adminStaffForm");
-    staffForm?.addEventListener("submit", (e) => {
+    staffForm?.addEventListener("submit", async (e) => {
       e.preventDefault();
       const editId = byId("adminStaffId").value;
       const name = byId("adminStaffName").value.trim();
@@ -1933,56 +1952,58 @@ function renderAdminTab(tab, container) {
       const password = byId("adminStaffPass").value;
       const role = byId("adminStaffRole").value;
       const phone = byId("adminStaffPhone").value.trim();
-      const list = getUsers();
-      if (editId) {
-        const idx = list.findIndex(x => x.id === editId || x._id === editId);
-        if (idx !== -1) {
-          list[idx].name = name;
-          list[idx].phoneNumber = phone;
-          if (password) list[idx].password = password;
-          if (role) list[idx].role = role;
+
+      try {
+        if (editId) {
+          await api.updateStaff(editId, { name, password, role, phoneNumber: phone });
+          showToast("Đã cập nhật nhân viên");
+        } else {
+          const result = await api.createStaff({ name, email, password: password || "staff123", role, phoneNumber: phone });
+          if (result.success || result._id) {
+            showToast("Đã thêm nhân viên");
+          } else {
+            showToast(result.message || "Lỗi khi thêm nhân viên");
+          }
         }
-      } else {
-        if (list.some(x => x.email === email)) { showToast("Email đã tồn tại"); return; }
-        list.push({
-          id: `u-${Date.now()}`,
-          name, email, password: password || "staff123",
-          role, phoneNumber: phone,
-          createdAt: new Date().toISOString(),
-          isLocked: false,
-        });
+        renderAdminTab("staff", container);
+      } catch (err) {
+        showToast("Lỗi kết nối backend");
       }
-      setUsers(list);
-      showToast("Đã lưu nhân viên");
-      renderAdminTab("staff", container);
     });
-    byId("adminStaffTable")?.addEventListener("click", (e) => {
+    byId("adminStaffTable")?.addEventListener("click", async (e) => {
       const id = e.target.dataset.id;
       const action = e.target.dataset.action;
       if (!id) return;
-      let list = getUsers();
-      if (action === "delete") {
-        if (confirm("Xóa nhân viên này?")) {
-          setUsers(list.filter(x => (x.id || x._id) !== id));
+
+      try {
+        if (action === "delete") {
+          if (confirm("Xóa nhân viên này?")) {
+            await api.deleteStaff(id);
+            showToast("Đã xóa nhân viên");
+            renderAdminTab("staff", container);
+          }
+        } else if (action === "lock") {
+          await api.lockStaff(id);
+          showToast("Đã khóa tài khoản");
           renderAdminTab("staff", container);
+        } else if (action === "unlock") {
+          await api.unlockStaff(id);
+          showToast("Đã mở khóa tài khoản");
+          renderAdminTab("staff", container);
+        } else if (action === "edit") {
+          const u = users.find((x) => (x.id || x._id) === id);
+          if (u) {
+            byId("adminStaffId").value = u.id || u._id;
+            byId("adminStaffName").value = u.name || u.username || "";
+            byId("adminStaffEmail").value = u.email || "";
+            byId("adminStaffPass").value = "";
+            byId("adminStaffRole").value = u.role || "staff";
+            byId("adminStaffPhone").value = u.phoneNumber || "";
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
         }
-      } else if (action === "lock") {
-        const u = list.find(x => (x.id || x._id) === id);
-        if (u) { u.isLocked = true; setUsers(list); renderAdminTab("staff", container); }
-      } else if (action === "unlock") {
-        const u = list.find(x => (x.id || x._id) === id);
-        if (u) { u.isLocked = false; setUsers(list); renderAdminTab("staff", container); }
-      } else if (action === "edit") {
-        const u = list.find(x => (x.id || x._id) === id);
-        if (u) {
-          byId("adminStaffId").value = u.id || u._id;
-          byId("adminStaffName").value = u.name || u.username || "";
-          byId("adminStaffEmail").value = u.email || "";
-          byId("adminStaffPass").value = "";
-          byId("adminStaffRole").value = u.role || "staff";
-          byId("adminStaffPhone").value = u.phoneNumber || "";
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }
+      } catch (err) {
+        showToast("Lỗi khi thực hiện thao tác");
       }
     });
   } else if (tab === "inventory") {
@@ -2879,6 +2900,7 @@ function restoreTheme() {
 async function bootstrap() {
   applyDevReset();
   seedData();
+  removeSampleStaffAccounts();
   restoreTheme();
   initCursorEffect();
   initThemeIcon();

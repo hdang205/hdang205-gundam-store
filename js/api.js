@@ -128,4 +128,64 @@ const api = {
       body: JSON.stringify({ code, orderValue }),
     });
   },
+
+  // Admin User Management
+  async getAllUsers() {
+    return this.fetchWithAuth(`${API_BASE}/admin/users`);
+  },
+
+  async deleteUser(id) {
+    return this.fetchWithAuth(`${API_BASE}/admin/users/${id}`, {
+      method: "DELETE",
+    });
+  },
+
+  async lockUser(id) {
+    return this.fetchWithAuth(`${API_BASE}/admin/users/${id}/lock`, {
+      method: "PUT",
+    });
+  },
+
+  async unlockUser(id) {
+    return this.fetchWithAuth(`${API_BASE}/admin/users/${id}/unlock`, {
+      method: "PUT",
+    });
+  },
+
+  // Admin Staff Management
+  async getAllStaff() {
+    return this.fetchWithAuth(`${API_BASE}/admin/staff`);
+  },
+
+  async createStaff(staffData) {
+    return this.fetchWithAuth(`${API_BASE}/admin/staff`, {
+      method: "POST",
+      body: JSON.stringify(staffData),
+    });
+  },
+
+  async updateStaff(id, staffData) {
+    return this.fetchWithAuth(`${API_BASE}/admin/staff/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(staffData),
+    });
+  },
+
+  async deleteStaff(id) {
+    return this.fetchWithAuth(`${API_BASE}/admin/staff/${id}`, {
+      method: "DELETE",
+    });
+  },
+
+  async lockStaff(id) {
+    return this.fetchWithAuth(`${API_BASE}/admin/staff/${id}/lock`, {
+      method: "PUT",
+    });
+  },
+
+  async unlockStaff(id) {
+    return this.fetchWithAuth(`${API_BASE}/admin/staff/${id}/unlock`, {
+      method: "PUT",
+    });
+  },
 };
