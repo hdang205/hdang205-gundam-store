@@ -980,6 +980,8 @@ function renderUserPage() {
   const darkModeToggle = byId("darkModeToggle");
   const uploadAvatarBtn = byId("uploadAvatarBtn");
   const avatarInput = byId("avatarInput");
+  const personalInfoSection = byId("personalInfoSection");
+  const updateProfileForm = byId("updateProfileForm");
 
   if (!profileName || !profileEmail || !orderList || !wishlistList) return;
 
@@ -991,19 +993,57 @@ function renderUserPage() {
     wishlistList.innerHTML = "<li>Mục yêu thích trống.</li>";
     loginButton && (loginButton.style.display = "inline-flex");
     if (uploadAvatarBtn) uploadAvatarBtn.style.display = "none";
+    if (personalInfoSection) personalInfoSection.style.display = "none";
     return;
   }
 
   if (loginButton) loginButton.style.display = "none";
   if (uploadAvatarBtn) uploadAvatarBtn.style.display = "flex";
+  if (personalInfoSection) personalInfoSection.style.display = "block";
 
-  profileName.textContent = currentUser.name || "Thành viên Gundam";
-  profileEmail.textContent = currentUser.email;
+  // Fetch latest profile from backend
+  api.getProfile().then(user => {
+    if (user && user.email) {
+      profileName.textContent = user.name || "Thành viên Gundam";
+      profileEmail.textContent = user.email;
+      if (profileAvatar && user.avatar) {
+        profileAvatar.src = user.avatar;
+      }
 
-  // Set avatar if exists
-  if (profileAvatar && currentUser.avatar) {
-    profileAvatar.src = currentUser.avatar;
-  }
+      // Populate update form
+      if (byId("updateName")) byId("updateName").value = user.name || "";
+      if (byId("updatePhone")) byId("updatePhone").value = user.phoneNumber || "";
+      if (byId("updateAddress")) byId("updateAddress").value = user.address || "";
+    }
+  }).catch(err => {
+    console.error("Failed to fetch profile", err);
+    profileName.textContent = currentUser.name || "Thành viên Gundam";
+    profileEmail.textContent = currentUser.email;
+  });
+
+  // Handle profile update
+  updateProfileForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = byId("updateName").value.trim();
+    const phoneNumber = byId("updatePhone").value.trim();
+    const address = byId("updateAddress").value.trim();
+
+    try {
+      const result = await api.updateProfile({ name, phoneNumber, address });
+      if (result && result.email) {
+        showToast("Cập nhật thông tin thành công");
+        profileName.textContent = result.name;
+        // Update session
+        const session = getCurrentUser();
+        session.name = result.name;
+        setCurrentUser(session);
+      } else {
+        showToast(result.message || "Lỗi khi cập nhật thông tin");
+      }
+    } catch (err) {
+      showToast("Lỗi kết nối backend");
+    }
+  });
 
   // Load orders from API
   api

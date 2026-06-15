@@ -82,6 +82,25 @@
         <h3 id="profileName">Khach</h3>
         <p id="profileEmail">Dang tai du lieu...</p>
 
+        <div class="profile-section detail-card" id="personalInfoSection" style="display: none;">
+          <h4>Thông tin cá nhân</h4>
+          <form id="updateProfileForm" class="checkout-form" style="margin-top: 14px">
+            <div style="margin-bottom: 10px;">
+              <label style="font-size: 0.8em; color: var(--primary); display: block; margin-bottom: 5px;">Họ và tên</label>
+              <input type="text" id="updateName" placeholder="Họ và tên" required />
+            </div>
+            <div style="margin-bottom: 10px;">
+              <label style="font-size: 0.8em; color: var(--primary); display: block; margin-bottom: 5px;">Số điện thoại</label>
+              <input type="text" id="updatePhone" placeholder="Số điện thoại" />
+            </div>
+            <div style="margin-bottom: 10px;">
+              <label style="font-size: 0.8em; color: var(--primary); display: block; margin-bottom: 5px;">Địa chỉ</label>
+              <input type="text" id="updateAddress" placeholder="Địa chỉ" />
+            </div>
+            <button class="btn-primary" type="submit">Cập nhật thông tin</button>
+          </form>
+        </div>
+
         <a
           href="login.html"
           id="loginButton"
