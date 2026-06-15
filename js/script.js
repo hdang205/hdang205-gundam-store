@@ -827,6 +827,23 @@ function renderCheckoutPage() {
   const form = byId("checkoutForm");
   if (!form) return;
 
+  const paymentMethodSelect = byId("paymentMethod");
+  const momoPaymentInfo = byId("momoPaymentInfo");
+  const momoTransferContent = byId("momoTransferContent");
+  let currentOrderId = `order-${Date.now()}`;
+
+  paymentMethodSelect?.addEventListener("change", (e) => {
+    if (e.target.value === "MOMO") {
+      momoPaymentInfo.style.display = "flex";
+      const shortId = currentOrderId.slice(-6).toUpperCase();
+      if (momoTransferContent) {
+        momoTransferContent.textContent = `Nội dung chuyển khoản: GD ${shortId}`;
+      }
+    } else {
+      momoPaymentInfo.style.display = "none";
+    }
+  });
+
   const couponInput = byId("couponCode");
   const summaryEl = byId("checkoutSummary");
   const loadingEl = byId("checkoutLoading");
@@ -890,7 +907,7 @@ function renderCheckoutPage() {
 
     setTimeout(() => {
       orders.unshift({
-        id: `order-${Date.now()}`,
+        id: currentOrderId,
         userId: currentUser?.id || null,
         customer: {
           fullName,
@@ -911,8 +928,18 @@ function renderCheckoutPage() {
       setOrders(orders);
       setCartItems([]);
       if (loadingEl) loadingEl.style.display = "none";
-      showToast("Đặt hàng thành công");
-      setTimeout(() => (window.location.href = "user.html"), 1000);
+      
+      if (paymentMethod === "MOMO") {
+        const orderIdShort = currentOrderId.slice(-6).toUpperCase();
+        showToast(`Đặt hàng thành công! Mã đơn: ${orderIdShort}`);
+        
+        window.scrollTo({ top: momoPaymentInfo.offsetTop - 100, behavior: 'smooth' });
+        
+        setTimeout(() => (window.location.href = "user.html"), 8000); // Đợi lâu hơn để khách kịp quét mã
+      } else {
+        showToast("Đặt hàng thành công");
+        setTimeout(() => (window.location.href = "user.html"), 1000);
+      }
     }, 1200);
   });
 }

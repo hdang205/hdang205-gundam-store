@@ -55,6 +55,17 @@
 
         <div id="checkoutSummary" class="detail-card"></div>
 
+        <div id="momoPaymentInfo" class="detail-card" style="display: none; margin-top: 20px; text-align: center; flex-direction: column; align-items: center; justify-content: center;">
+          <h4>Thanh toán qua Ví MoMo</h4>
+          <p style="margin: 10px 0;">Vui lòng quét mã QR dưới đây để thanh toán</p>
+          <div style="display: flex; justify-content: center; width: 100%; margin-bottom: 15px;">
+            <img id="momoQrImg" src="images/momo-qr.jpg" alt="MoMo QR Code" style="width: 250px; border-radius: 10px; display: block; margin: 0 auto;">
+          </div>
+          <p><b>Chủ tài khoản:</b> NGUYỄN HẢI ĐĂNG</p>
+          <p><b>Số điện thoại:</b> 0336916402</p>
+          <p id="momoTransferContent" style="font-size: 1.1em; color: var(--primary); margin-top: 10px; font-weight: bold;">Nội dung chuyển khoản: [Mã đơn hàng]</p>
+        </div>
+
         <textarea id="note" placeholder="Ghi chú"></textarea>
 
         <button class="btn-primary" type="submit">Xác nhận thanh toán</button>
