@@ -473,93 +473,6 @@ section {
   color: var(--muted);
 }
 
-.hero {
-  position: relative;
-  height: 100vh;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  padding-top: 0;
-}
-
-.hero-slider {
-  position: absolute;
-  inset: 0;
-}
-
-.slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-
-.slide.active {
-  opacity: 1;
-}
-
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.08);
-  filter: saturate(1.08) contrast(1.04);
-}
-
-.slide video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.08);
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(5, 8, 20, 0.22),
-    rgba(5, 8, 20, 0.82) 60%,
-    rgba(5, 8, 20, 0.95)
-  );
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 1100px;
-  text-align: center;
-  padding: 100px 16px 60px;
-}
-
-.hero-kicker {
-  color: var(--primary);
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  font-size: 0.82rem;
-  margin-bottom: 18px;
-}
-
-.hero-content h1 {
-  font-size: clamp(3rem, 9vw, 6.5rem);
-  line-height: 0.92;
-  text-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
-}
-
-.hero-content p {
-  max-width: 720px;
-  margin: 18px auto 0;
-  color: var(--muted);
-  font-size: 1.02rem;
-}
-
-.hero-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 28px;
-}
 
 .hero-stats {
   display: flex;
@@ -1663,21 +1576,139 @@ header#header {
   position: relative;
   width: 100%;
   height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
   overflow: hidden;
   background-color: #000;
 }
 
-.hero-slider,
-.slide {
+/* Container bọc ngoài video */
+.hero-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  z-index: 1;
+  overflow: hidden; /* Cắt các phần tràn */
 }
 
-.slide video {
-  width: 100%;
-  height: 100%;
+/* Thẻ video chính */
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Buộc video luôn nằm chính giữa tâm màn hình */
+  
+  /* Cấu hình bắt buộc để video co giãn theo tỉ lệ rộng */
+  width: 100vw;
+  height: 56.25vw; /* Đảm bảo giữ đúng tỉ lệ khung hình chuẩn trên PC */
+  min-width: 100%;
+  min-height: 100%;
+  
   object-fit: cover;
   object-position: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.6) 0%, /* Giảm từ 0.9 xuống 0.6 cho đỡ tối */
+    rgba(0, 0, 0, 0.2) 50%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  padding: 0 0 80px 60px;
+  max-width: 800px;
+  color: #fff;
+}
+
+.hero-kicker {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.hero-content h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 12px 30px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: #fff;
+  color: #000;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #00f0ff, #ff0055);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s forwards;
+}
+
+.hero-content .reveal:nth-child(1) { animation-delay: 0.2s; }
+.hero-content .reveal:nth-child(2) { animation-delay: 0.4s; }
+.hero-content .reveal:nth-child(3) { animation-delay: 0.6s; }
+.hero-content .reveal:nth-child(4) { animation-delay: 0.8s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 0 20px 60px 20px;
+  }
+  .hero-buttons {
+    flex-direction: column;
+  }
 }
 
 #menuToggle {
