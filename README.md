@@ -1,7 +1,7 @@
-# Gunpla Store - Gundam Model E-commerce Project
+# Gundam Store - Gundam Model E-commerce Project
 
 ## Giới thiệu (Introduction)
-**Gunpla Store** là một dự án website thương mại điện tử chuyên biệt dành cho những người yêu thích mô hình Gundam (Gunpla). Website cung cấp trải nghiệm mua sắm hiện đại, mượt mà với giao diện lấy cảm hứng từ phong cách tương lai (futuristic) và các tính năng đầy đủ của một cửa hàng trực tuyến chuyên nghiệp.
+**Gundam Store** là một dự án website thương mại điện tử chuyên biệt dành cho những người yêu thích mô hình Gundam (Gunpla). Website cung cấp trải nghiệm mua sắm hiện đại, mượt mà với giao diện lấy cảm hứng từ phong cách tương lai (futuristic) và các tính năng đầy đủ của một cửa hàng trực tuyến chuyên nghiệp.
 
 ## Công nghệ sử dụng (Tech Stack)
 
